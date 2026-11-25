@@ -1,9 +1,11 @@
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Schedule {
     private ArrayList<Activity> scheduleList;
+    private HashMap<String,Integer> p;
 
     public Schedule() {
         scheduleList = new ArrayList<>();
