@@ -18,4 +18,34 @@ void main() {
     schedule.addActivity(e1);
 
     schedule.printSchedule();
+
+    schedule.addActivity(new Event(
+            "Workshop",
+            LocalDateTime.of(2026, 12, 3, 18, 0),
+            LocalDateTime.of(2026, 12, 3, 19, 0),
+            "low", "academic"));
+
+    schedule.addActivity(new Event(
+            "Project Meeting",
+            LocalDateTime.of(2026, 12, 5, 18, 0),
+            LocalDateTime.of(2026, 12, 5, 19, 0),
+            "high", "academic"));
+
+    schedule.addActivity(new Event(
+            "Family Gathering",
+            LocalDateTime.of(2026, 12, 4, 18, 0),
+            LocalDateTime.of(2026, 12, 4, 19, 0),
+            "NormAl", "personal"));
+
+    schedule.addActivity(new Event(
+            "Presentation",
+            LocalDateTime.of(2026, 12, 3, 20, 0),
+            LocalDateTime.of(2026, 12, 3, 21, 0),
+            "high", "academic"));
+
+    System.out.println("Prioritized Activities:");
+
+    for (Activity a : schedule.getPriAct()) {
+        System.out.println(a);
+    }
 }

@@ -2,13 +2,30 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.*;
 
 public class Schedule {
     private ArrayList<Activity> scheduleList;
-    private HashMap<String,Integer> p;
+    private HashMap<String,Integer> priorityMap;
 
     public Schedule() {
         scheduleList = new ArrayList<>();
+        priorityMap = new HashMap<>();
+
+        priorityMap.put("high",1);
+        priorityMap.put("normal",2);
+        priorityMap.put("low",3);
+    }
+    public ArrayList<Activity> getPriAct() {
+        ArrayList<Activity> list = new ArrayList<>();
+
+        for (Activity a : scheduleList) {
+            if (!a.isCompleted() && !(a instanceof ClassSession))
+                list.add(a);
+        }
+
+        Collections.sort(list);
+        return list;
     }
 
     public boolean hasConflict(Activity newActivity) {
