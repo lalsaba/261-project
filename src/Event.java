@@ -13,7 +13,17 @@ public class Event extends Activity {
     }
 
     @Override
-    public String toString(){
-        return "Event title: " + super.getActivityTitle() + " | start time " + super.getStartTime() + "| end time " +super.getEndTime();
+    public String toFileString() {
+        return "EVENT|" + super.toFileString() + "|" + eventType;
     }
+
+    @Override
+    public String toString() {
+        return "Event: " + getActivityTitle()
+                + " | Start: " + getStartTime()
+                + " | End: " + getEndTime()
+                + " | Priority: " + getPriority();
+    }
+
+
 }

@@ -66,6 +66,12 @@ public abstract class Activity implements Comparable<Activity> {
 
         return this.getStartTime().compareTo(other.getStartTime());
     }
+
+    public String toFileString() {
+        return activityTitle + "|" + startTime + "|" + endTime + "|" + priority;
+    }
+
+
 }
 
 

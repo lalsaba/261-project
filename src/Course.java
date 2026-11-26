@@ -49,4 +49,10 @@ public class Course {
         return "Course name: "+ getCourseName() + " | Course code: " + getCourseCode()  + "\n";
     }
 
+
+    public String toFileString() {
+        return courseName + "|" + courseCode + "|" + courseInstructor
+                + "|" + startTime + "|" + endTime
+                + "|" + meetingDays + "|" + location;
+    }
 }

@@ -16,6 +16,7 @@ public class Schedule {
         priorityMap.put("normal",2);
         priorityMap.put("low",3);
     }
+
     public ArrayList<Activity> getPriAct() {
         ArrayList<Activity> list = new ArrayList<>();
 
@@ -26,6 +27,10 @@ public class Schedule {
 
         Collections.sort(list);
         return list;
+    }
+
+    public ArrayList<Activity> getScheduleList() {
+        return scheduleList;
     }
 
     public boolean hasConflict(Activity newActivity) {
@@ -141,4 +146,6 @@ public class Schedule {
             firstDate = firstDate.plusDays(1);
         }
     }
+
+
 }

@@ -20,4 +20,13 @@ public class Exam extends Activity{
     public void setExamType(String examType) {
         this.examType = examType;
     }
+
+    @Override
+    public String toFileString() {
+        return "EXAM|" + super.toFileString() + "|"
+                + examType + "|" + course.getCourseCode()
+                + "|" + location + "|" + scorePercentage;
+    }
+
+
 }
