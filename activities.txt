@@ -1,5 +1,5 @@
 EVENT|fun|2026-12-02T17:00|2026-12-02T20:00|low|hangout
 EVENT|Workshop|2026-12-03T18:00|2026-12-03T19:00|low|academic
 EVENT|Project Meeting|2026-12-05T18:00|2026-12-05T19:00|high|academic
-EVENT|Family Gathering|2026-12-04T18:00|2026-12-04T19:00|NormAl|personal
+EVENT|Family Gathering|2026-12-04T18:00|2026-12-04T19:00|Normal|personal
 EVENT|Presentation|2026-12-03T20:00|2026-12-03T21:00|high|academic

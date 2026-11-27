@@ -47,7 +47,7 @@ void main() throws FileNotFoundException {
             "Family Gathering",
             LocalDateTime.of(2026, 12, 4, 18, 0),
             LocalDateTime.of(2026, 12, 4, 19, 0),
-            "NormAl", "personal"));
+            "Normal", "personal"));
 
     schedule.addActivity(new Event(
             "Presentation",

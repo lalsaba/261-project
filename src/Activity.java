@@ -71,7 +71,21 @@ public abstract class Activity implements Comparable<Activity> {
         return activityTitle + "|" + startTime + "|" + endTime + "|" + priority;
     }
 
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
 
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setActivityTitle(String activityTitle) {
+        this.activityTitle = activityTitle;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
 }
 
 
