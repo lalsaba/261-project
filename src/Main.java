@@ -1,69 +1,89 @@
-
+import java.time.format.DateTimeFormatter;
 import java.time.*;
 import java.io.*;
 
-void main() throws FileNotFoundException {
+public class Main {
+    public static void main(String[] args)
+            throws FileNotFoundException {
 
-    Student s1 = new Student("leen", "123");
-    Schedule schedule = new Schedule();
+        Student s1 = new Student("leen", "123");
+        Schedule schedule = new Schedule();
 
-    Course c1 = new Course("java", "ics 108", "eman",
-            LocalDateTime.of(2026, 12, 1, 9, 0),
-            LocalDateTime.of(2026, 12, 1, 10, 0),
-            "mw", "22-339i");
+        Course c1 = new Course(
+                "Java", "ICS108", "Eman",
+                LocalDateTime.of(2026, 12, 1, 9, 0),
+                LocalDateTime.of(2026, 12, 1, 10, 0),
+                "mw", "22-339i");
 
-    s1.addCourse(c1);
-    schedule.addCourse(c1);
+        s1.addCourse(c1);
+        schedule.addCourse(c1);
 
-    Event e = new Event("fun",
-            LocalDateTime.of(2026, 12, 2, 17, 0),
-            LocalDateTime.of(2026, 12, 2, 20, 0),
-            "low", "hangout");
+        Exam exam = new Exam(
+                "Java Midterm",
+                LocalDateTime.of(2026, 12, 2, 12, 0),
+                LocalDateTime.of(2026, 12, 2, 13, 0),
+                "high", "Room 101", c1);
 
-    schedule.addActivity(e);
+        exam.setExamType("midterm");
+        exam.setExamScore(95);
+        exam.setCompleted();
 
-    Event e1 = new Event("another event",
-            LocalDateTime.of(2026, 12, 2, 17, 0),
-            LocalDateTime.of(2026, 12, 2, 20, 0),
-            "low", "hangout");
+        schedule.addActivity(exam);
 
-    schedule.addActivity(e1);
+        StudySession study = new StudySession(
+                "Study Java",
+                LocalDateTime.of(2026, 12, 3, 15, 0),
+                LocalDateTime.of(2026, 12, 3, 17, 0),
+                "normal");
 
-    schedule.printSchedule();
+        schedule.addActivity(study);
 
-    schedule.addActivity(new Event(
-            "Workshop",
-            LocalDateTime.of(2026, 12, 3, 18, 0),
-            LocalDateTime.of(2026, 12, 3, 19, 0),
-            "low", "academic"));
+        Event event = new Event(
+                "Workshop",
+                LocalDateTime.of(2026, 12, 4, 14, 0),
+                LocalDateTime.of(2026, 12, 4, 15, 0),
+                "low", "academic");
 
-    schedule.addActivity(new Event(
-            "Project Meeting",
-            LocalDateTime.of(2026, 12, 5, 18, 0),
-            LocalDateTime.of(2026, 12, 5, 19, 0),
-            "high", "academic"));
+        schedule.addActivity(event);
+        Deadline deadline = new Deadline(
+                "Java Project Submission",
+                LocalDateTime.of(2026, 12, 5, 20, 0),
+                LocalDateTime.of(2026, 12, 5, 23, 59),
+                "high");
 
-    schedule.addActivity(new Event(
-            "Family Gathering",
-            LocalDateTime.of(2026, 12, 4, 18, 0),
-            LocalDateTime.of(2026, 12, 4, 19, 0),
-            "Normal", "personal"));
+        schedule.addActivity(deadline);
 
-    schedule.addActivity(new Event(
-            "Presentation",
-            LocalDateTime.of(2026, 12, 3, 20, 0),
-            LocalDateTime.of(2026, 12, 3, 21, 0),
-            "high", "academic"));
+        FileManager.saveCourses(s1.getCourseList());
+        FileManager.saveActivities(schedule.getScheduleList());
 
-    System.out.println("Prioritized Activities:");
+        Student loadedStudent = new Student("leen", "123");
+        Schedule loadedSchedule = new Schedule();
 
-    for (Activity a : schedule.getPriAct()) {
-        System.out.println(a);
+        FileManager.loadCourses(loadedStudent, loadedSchedule);
+        FileManager.loadActivities(loadedSchedule, loadedStudent);
+
+        for (Activity a : loadedSchedule.getScheduleList()) {
+            if (!(a instanceof ClassSession)) {
+                System.out.println(a.toFileString());
+                System.out.println("Completed: " + a.isCompleted());
+            }
+        }
+        Dashboard dashboard = new Dashboard(loadedSchedule);
+
+        DateTimeFormatter format =
+                DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
+
+        System.out.println("\n===== DASHBOARD =====");
+
+        for (Activity a : dashboard.getUpcomingAct()) {
+
+            System.out.println("Title: " + a.getActivityTitle());
+            System.out.println("Type: " + a.getTypeName());
+            System.out.println("Start: " + a.getStartTime().format(format));
+            System.out.println("End: " + a.getEndTime().format(format));
+            System.out.println("Priority: " + a.getPriority());
+            System.out.println("-------------------------");
+        }
+
     }
-
-
-    FileManager.saveCourses(s1.getCourseList());
-    FileManager.saveActivities(schedule.getScheduleList());
-
-    System.out.println("\nData saved successfully!");
 }

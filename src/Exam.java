@@ -28,5 +28,8 @@ public class Exam extends Activity{
                 + "|" + location + "|" + scorePercentage;
     }
 
-
+    @Override
+    public String getTypeName() {
+        return "Exam";
+    }
 }

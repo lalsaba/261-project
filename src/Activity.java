@@ -68,7 +68,7 @@ public abstract class Activity implements Comparable<Activity> {
     }
 
     public String toFileString() {
-        return activityTitle + "|" + startTime + "|" + endTime + "|" + priority;
+        return activityTitle + "|" + startTime + "|" + endTime + "|" + priority + "|" + isCompleted;
     }
 
     public void setStartTime(LocalDateTime startTime) {
@@ -85,6 +85,13 @@ public abstract class Activity implements Comparable<Activity> {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public abstract String getTypeName();
+
+    @Override
+    public String toString() {
+        return getTypeName() + ": " + activityTitle + "|" + startTime + "|" + endTime + "|" + priority ;
     }
 }
 

@@ -10,4 +10,8 @@ public class StudySession extends Activity{
         return "STUDY|" + super.toFileString();
     }
 
+    @Override
+    public String getTypeName() {
+        return "Study Session";
+    }
 }

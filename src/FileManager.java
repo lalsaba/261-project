@@ -40,7 +40,7 @@ public class FileManager {
         while (reader.hasNextLine()) {
             String line = reader.nextLine();
 
-            String[] data = line.split("\\|");
+            String[] data = line.split("\\|", -1);
 
             Course course = new Course(data[0], data[1], data[2], LocalDateTime.parse(data[3]), LocalDateTime.parse(data[4]), data[5], data[6]);
 
@@ -65,7 +65,7 @@ public class FileManager {
         while (reader.hasNextLine()) {
 
             String line = reader.nextLine();
-            String[] data = line.split("\\|");
+            String[] data = line.split("\\|", -1);
 
             String type = data[0];
 
@@ -79,7 +79,7 @@ public class FileManager {
             if (type.equals("EVENT")) {
 
                 activity = new Event(
-                        title, start, end, priority, data[5]
+                        title, start, end, priority, data[6]
                 );
 
             } else if (type.equals("STUDY")) {
@@ -88,12 +88,18 @@ public class FileManager {
                         title, start, end, priority
                 );
 
+            } else if (type.equals("DEADLINE")) {
+
+                activity = new Deadline(
+                        title,start,end,priority
+                );
+
             } else if (type.equals("EXAM")) {
 
                 Course course = null;
 
                 for (Course c : student.getCourseList()) {
-                    if (c.getCourseCode().equals(data[6])) {
+                    if (c.getCourseCode().equals(data[7])) {
                         course = c;
                         break;
                     }
@@ -102,17 +108,20 @@ public class FileManager {
                 if (course != null) {
                     Exam exam = new Exam(
                             title, start, end, priority,
-                            data[7], course
+                            data[8], course
                     );
 
-                    exam.setExamType(data[5]);
-                    exam.setExamScore(Integer.parseInt(data[8]));
+                    exam.setExamType(data[6]);
+                    exam.setExamScore(Integer.parseInt(data[9]));
 
                     activity = exam;
                 }
             }
 
             if (activity != null) {
+                if(Boolean.parseBoolean(data[5])){
+                    activity.setCompleted();
+                }
                 schedule.addActivity(activity);
             }
         }

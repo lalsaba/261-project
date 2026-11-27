@@ -11,4 +11,9 @@ public class ClassSession extends Activity {
     public Course getCourse() {
         return course;
     }
+
+    @Override
+    public String getTypeName() {
+        return "Class Session";
+    }
 }

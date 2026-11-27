@@ -25,5 +25,8 @@ public class Event extends Activity {
                 + " | Priority: " + getPriority();
     }
 
-
+    @Override
+    public String getTypeName() {
+        return "Event";
+    }
 }

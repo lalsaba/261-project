@@ -1,20 +1,15 @@
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.*;
 
 public class Schedule {
     private ArrayList<Activity> scheduleList;
-    private HashMap<String,Integer> priorityMap;
+
 
     public Schedule() {
         scheduleList = new ArrayList<>();
-        priorityMap = new HashMap<>();
 
-        priorityMap.put("high",1);
-        priorityMap.put("normal",2);
-        priorityMap.put("low",3);
     }
 
     public ArrayList<Activity> getPriAct() {
@@ -33,8 +28,15 @@ public class Schedule {
         return scheduleList;
     }
 
+    public void removeActivity(Activity activity) {
+        scheduleList.remove(activity);
+    }
+
     public boolean hasConflict(Activity newActivity) {
         for (Activity existing : scheduleList) {
+            if (existing == newActivity){
+                continue;
+            }
             if (newActivity.getStartTime().isBefore(existing.getEndTime())
                     && existing.getStartTime().isBefore(newActivity.getEndTime())) {
                 return true;
@@ -43,13 +45,16 @@ public class Schedule {
         return false;
     }
 
-    public void addActivity(Activity added) {
+    public boolean addActivity(Activity added) {
         if (!added.getEndTime().isAfter(added.getStartTime())) {
             System.out.println("End must be after start.");
+            return false;
         } else if (hasConflict(added)) {
             System.out.println("Time conflict: " + added.getActivityTitle() + " on " + added.getStartTime().toLocalDate());
+            return false;
         } else {
             scheduleList.add(added);
+            return true;
         }
     }
 
@@ -128,6 +133,8 @@ public class Schedule {
                             type = "Study session";
                         } else if (a instanceof Event) {
                             type = "Event";
+                        } else if (a instanceof Deadline){
+                            type = "Deadline";
                         } else {
                             type = "Activity";
                         }
